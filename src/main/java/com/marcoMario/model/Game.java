@@ -1,5 +1,6 @@
 package com.marcoMario.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,12 +21,18 @@ public class Game {
     private String website;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Platform> platforms = new ArrayList<Platform>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Achievement> achievements = new ArrayList<Achievement>();
 
-    public Game(Long id, String name, String description, String released, boolean tba, String website, List<Platform> platforms, List<Achievement> achievements) {
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Screenshot> screenshots = new ArrayList<>();
+
+    public Game(Long id, String name, String description, String released, boolean tba, String website, List<Platform> platforms, List<Achievement> achievements, List<Screenshot> screenshots) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -34,6 +41,7 @@ public class Game {
         this.website = website;
         this.platforms = platforms;
         this.achievements = achievements;
+        this.screenshots = screenshots;
     }
 
     public Game() {
@@ -102,5 +110,13 @@ public class Game {
 
     public void setAchievements(List<Achievement> achievements) {
         this.achievements = achievements;
+    }
+
+    public List<Screenshot> getScreenshots() {
+        return screenshots;
+    }
+
+    public void setScreenshots(List<Screenshot> screenshots) {
+        this.screenshots = screenshots;
     }
 }
