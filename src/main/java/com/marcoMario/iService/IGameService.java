@@ -7,7 +7,17 @@ import java.util.List;
 
 public interface IGameService {
 
-    List<Game> getFewGames();
+    Game getGameById(long GameId);
 
-    List<GameDTO> getFewGamesDTO();
+    List<GameDTO> getGamesDTO();
+
+    List<GameDTO> getGamesByGenre(int idGenre, int page, int size);
+
+    List<GameDTO> getGamesByCreator(int idCreator, int page, int size);
+
+    List<GameDTO> getGamesByTag(int idTag, int page, int size);
+
+    List<GameDTO> getGamesByPlatform(int idPlatform, int page, int size);
+
+    List<GameDTO> findByNameStartsWith(String gameName);
 }
