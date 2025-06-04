@@ -13,9 +13,6 @@ public class Genre {
 
     private String name;
 
-    @ManyToMany(mappedBy = "genres")
-    private Set<Game> games;
-
     public Genre() {}
 
     public Genre(Long id, String name) {
@@ -29,12 +26,5 @@ public class Genre {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public Set<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(Set<Game> games) {
-        this.games = games;
-    }
 }
 

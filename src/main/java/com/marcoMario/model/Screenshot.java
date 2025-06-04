@@ -11,7 +11,7 @@ public class Screenshot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String image;
+    private String url;
 
     @ManyToOne()
     @JoinColumn(name = "game_id")
@@ -20,9 +20,9 @@ public class Screenshot {
 
     public Screenshot() {}
 
-    public Screenshot(long id, String image, Game game) {
+    public Screenshot(long id, String url, Game game) {
         this.id = id;
-        this.image = image;
+        this.url = url;
         this.game = game;
     }
 
@@ -34,12 +34,12 @@ public class Screenshot {
         this.id = id;
     }
 
-    public String getImage() {
-        return image;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(String url) {
+        this.url = url;
     }
 
     public Game getGame() {

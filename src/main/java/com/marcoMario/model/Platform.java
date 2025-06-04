@@ -16,10 +16,6 @@ public class Platform {
     private String slug;
     private String name;
 
-    @ManyToMany(mappedBy = "platforms")
-    private Set<Game> games = new HashSet<>();
-
-
     public Platform(int id, String slug, String name) {
         this.id = id;
         this.slug = slug;
@@ -28,14 +24,6 @@ public class Platform {
     }
 
     public Platform() {
-    }
-
-    public Set<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(Set<Game> games) {
-        this.games = games;
     }
 
     public int getId() {

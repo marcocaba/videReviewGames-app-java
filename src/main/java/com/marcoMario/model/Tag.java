@@ -13,8 +13,6 @@ public class Tag {
 
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
-    private Set<Game> games;
 
     public Tag() {}
 
@@ -29,12 +27,5 @@ public class Tag {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public Set<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(Set<Game> games) {
-        this.games = games;
-    }
 }
 

@@ -4,8 +4,7 @@ import com.marcoMario.iService.IGameService;
 import com.marcoMario.model.Creator;
 import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.Game;
-import com.marcoMario.repository.CreatorRepository;
-import com.marcoMario.repository.GameRepository;
+import com.marcoMario.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -23,12 +22,32 @@ public class GameService implements IGameService {
     @Autowired
     private CreatorRepository creatorRepository;
 
+    @Autowired
+    private PlatformRepository platformRepository;
+
+    @Autowired
+    private AchievementsRepository achievementsRepository;
+
+    @Autowired
+    private ScreenshotsRepository screenshotsRepository;
+
+    @Autowired
+    private GenresRepository genresRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
+
 
     @Override
     public Game getGameById(long GameId) {
         Game game;
         game = buildCreators(gameRepository.getGameById(GameId));
         game.setCreators(creatorRepository.findCreatorsByGameId(GameId));
+        game.setPlatforms(platformRepository.findPlatformsByGameId(GameId));
+        game.setAchievements(achievementsRepository.findAchievementsByGameId(GameId));
+        game.setScreenshots(screenshotsRepository.findAllByGameId(GameId));
+        game.setGenres(genresRepository.findAllByGameId(GameId));
+        game.setTags(tagRepository.findAllByGameId(GameId));
 
         return game;
     }
