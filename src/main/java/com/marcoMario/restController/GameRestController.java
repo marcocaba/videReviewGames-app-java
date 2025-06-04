@@ -1,6 +1,7 @@
 package com.marcoMario.restController;
 
 import com.marcoMario.iService.IGameService;
+import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,8 +17,15 @@ public class GameRestController {
     private IGameService gameService;
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/viewAllGames")
-    public List<Game> viewAllGames() {
-        return gameService.getAllGames();
+    @GetMapping("/viewFewGames")
+    public List<Game> viewFewGames() {
+        return gameService.getFewGames();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/viewGamesDTO")
+    public List<GameDTO> viewGamesDTO() {
+        System.out.println("1");
+        return gameService.getFewGamesDTO();
     }
 }

@@ -2,8 +2,10 @@ package com.marcoMario.model;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "tags")
 public class Tag {
 
     @Id
@@ -12,7 +14,7 @@ public class Tag {
     private String name;
 
     @ManyToMany(mappedBy = "tags")
-    private List<Game> games;
+    private Set<Game> games;
 
     public Tag() {}
 
@@ -27,7 +29,12 @@ public class Tag {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public List<Game> getGames() { return games; }
-    public void setGames(List<Game> games) { this.games = games; }
+    public Set<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(Set<Game> games) {
+        this.games = games;
+    }
 }
 

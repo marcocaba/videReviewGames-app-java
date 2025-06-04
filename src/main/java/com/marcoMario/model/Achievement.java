@@ -4,17 +4,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "achievements")
 public class Achievement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String image;
     private String percent;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "game_id")
     @JsonBackReference
     private Game game;

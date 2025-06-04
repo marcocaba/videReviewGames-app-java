@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "screenshots")
 public class Screenshot {
 
     @Id
@@ -12,14 +13,15 @@ public class Screenshot {
 
     private String image;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "game_id")
     @JsonBackReference
     private Game game;
 
     public Screenshot() {}
 
-    public Screenshot(String image, Game game) {
+    public Screenshot(long id, String image, Game game) {
+        this.id = id;
         this.image = image;
         this.game = game;
     }

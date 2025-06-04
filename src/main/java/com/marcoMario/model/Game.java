@@ -3,36 +3,36 @@ package com.marcoMario.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "games")
 public class Game {
 
     @Id
     private Long id;
-
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String released;
-    private boolean tba;
-    private String website;
-
+    private String image;
     @ManyToMany
     @JoinTable(
             name = "game_platforms",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "platform_id")
     )
-    private List<Platform> platforms = new ArrayList<>();
+    private Set<Platform> platforms = new HashSet<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Achievement> achievements = new ArrayList<>();
+    private Set<Achievement> achievements;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Screenshot> screenshots = new ArrayList<>();
+    private Set<Screenshot> screenshots;
 
     @ManyToMany
     @JoinTable(
@@ -40,15 +40,7 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "creator_id")
     )
-    private List<Creator> creators = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(
-            name = "game_developers",
-            joinColumns = @JoinColumn(name = "game_id"),
-            inverseJoinColumns = @JoinColumn(name = "developer_id")
-    )
-    private List<Developer> developers = new ArrayList<>();
+    private Set<Creator> creators = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -56,7 +48,7 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private List<Genre> genres = new ArrayList<>();
+    private Set<Genre> genres = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -64,29 +56,25 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<Tag> tags = new ArrayList<>();
-
+    private Set<Tag> tags = new HashSet<>();
 
     public Game() {}
 
-    public Game(Long id, String name, String description, String released, boolean tba, String website,
-                List<Platform> platforms, List<Achievement> achievements, List<Screenshot> screenshots,
-                List<Creator> creators, List<Developer> developers, List<Genre> genres, List<Tag> tags) {
+    public Game(Long id, String name, String description, String released,
+                Set<Platform> platforms, Set<Achievement> achievements, Set<Screenshot> screenshots,
+                Set<Creator> creators, Set<Genre> genres, Set<Tag> tags, String image) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.released = released;
-        this.tba = tba;
-        this.website = website;
         this.platforms = platforms;
         this.achievements = achievements;
         this.screenshots = screenshots;
         this.creators = creators;
-        this.developers = developers;
         this.genres = genres;
         this.tags = tags;
+        this.image = image;
     }
-
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -100,31 +88,29 @@ public class Game {
     public String getReleased() { return released; }
     public void setReleased(String released) { this.released = released; }
 
-    public boolean isTba() { return tba; }
-    public void setTba(boolean tba) { this.tba = tba; }
+    public Set<Platform> getPlatforms() { return platforms; }
+    public void setPlatforms(Set<Platform> platforms) { this.platforms = platforms; }
 
-    public String getWebsite() { return website; }
-    public void setWebsite(String website) { this.website = website; }
+    public Set<Achievement> getAchievements() { return achievements; }
+    public void setAchievements(Set<Achievement> achievements) { this.achievements = achievements; }
 
-    public List<Platform> getPlatforms() { return platforms; }
-    public void setPlatforms(List<Platform> platforms) { this.platforms = platforms; }
+    public Set<Screenshot> getScreenshots() { return screenshots; }
+    public void setScreenshots(Set<Screenshot> screenshots) { this.screenshots = screenshots; }
 
-    public List<Achievement> getAchievements() { return achievements; }
-    public void setAchievements(List<Achievement> achievements) { this.achievements = achievements; }
+    public Set<Creator> getCreators() { return creators; }
+    public void setCreators(Set<Creator> creators) { this.creators = creators; }
 
-    public List<Screenshot> getScreenshots() { return screenshots; }
-    public void setScreenshots(List<Screenshot> screenshots) { this.screenshots = screenshots; }
+    public Set<Genre> getGenres() { return genres; }
+    public void setGenres(Set<Genre> genres) { this.genres = genres; }
 
-    public List<Creator> getCreators() { return creators; }
-    public void setCreators(List<Creator> creators) { this.creators = creators; }
+    public Set<Tag> getTags() { return tags; }
+    public void setTags(Set<Tag> tags) { this.tags = tags; }
 
-    public List<Developer> getDevelopers() { return developers; }
-    public void setDevelopers(List<Developer> developers) { this.developers = developers; }
+    public String getImage() {
+        return image;
+    }
 
-    public List<Genre> getGenres() { return genres; }
-    public void setGenres(List<Genre> genres) { this.genres = genres; }
-
-    public List<Tag> getTags() { return tags; }
-    public void setTags(List<Tag> tags) { this.tags = tags; }
+    public void setImage(String image) {
+        this.image = image;
+    }
 }
-

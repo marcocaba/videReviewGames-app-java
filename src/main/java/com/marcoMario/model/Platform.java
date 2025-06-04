@@ -3,7 +3,11 @@ package com.marcoMario.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
+@Table(name = "platforms")
 public class Platform {
 
     @Id
@@ -11,35 +15,27 @@ public class Platform {
     private int id;
     private String slug;
     private String name;
-    private String release_at;
-    private String requirementsMinimum;
-    private String requirementsRecommended;
 
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    @JsonBackReference
-    private Game game;
+    @ManyToMany(mappedBy = "platforms")
+    private Set<Game> games = new HashSet<>();
 
 
-    public Platform(Game game, String name, String slug, int id, String release_at, String requirementsMinimum, String requirementsRecommended) {
-        this.game = game;
-        this.name = name;
-        this.slug = slug;
+    public Platform(int id, String slug, String name) {
         this.id = id;
-        this.release_at = release_at;
-        this.requirementsMinimum = requirementsMinimum;
-        this.requirementsRecommended = requirementsRecommended;
+        this.slug = slug;
+        this.name = name;
+
     }
 
     public Platform() {
     }
 
-    public Game getGame() {
-        return game;
+    public Set<Game> getGames() {
+        return games;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGames(Set<Game> games) {
+        this.games = games;
     }
 
     public int getId() {
@@ -58,14 +54,6 @@ public class Platform {
         this.slug = slug;
     }
 
-    public String getRelease_at() {
-        return release_at;
-    }
-
-    public void setRelease_at(String release_at) {
-        this.release_at = release_at;
-    }
-
     public String getName() {
         return name;
     }
@@ -74,19 +62,4 @@ public class Platform {
         this.name = name;
     }
 
-    public String getRequirementsMinimum() {
-        return requirementsMinimum;
-    }
-
-    public void setRequirementsMinimum(String requirementsMinimum) {
-        this.requirementsMinimum = requirementsMinimum;
-    }
-
-    public String getRequirementsRecommended() {
-        return requirementsRecommended;
-    }
-
-    public void setRequirementsRecommended(String requirementsRecommended) {
-        this.requirementsRecommended = requirementsRecommended;
-    }
 }
