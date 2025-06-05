@@ -26,35 +26,35 @@ public class User {
     private List<Game> favorites;
 
 
-    public Long getidUser() {
+    public Long getIdUser() {
         return idUser;
     }
 
-    public void setidUser(Long idUser) {
+    public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 
-    public String getname() {
+    public String getName() {
         return name;
     }
 
-    public void setname(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getpsswd() {
+    public String getPsswd() {
         return psswd;
     }
 
-    public void setpsswd(String psswd) {
+    public void setPsswd(String psswd) {
         this.psswd = psswd;
     }
 
-    public List<Game> getfavorites() {
+    public List<Game> getFavorites() {
         return favorites;
     }
 
-    public void setfavorites(List<Game> favorites) {
+    public void setFavorites(List<Game> favorites) {
         this.favorites = favorites;
     }
 }

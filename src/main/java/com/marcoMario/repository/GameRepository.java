@@ -38,4 +38,19 @@ public interface GameRepository extends JpaRepository <Game, Long> {
     @Query("SELECT new com.marcoMario.model.DTO.GameDTO(g.id, g.name, g.description, g.released, g.image)FROM Game g WHERE LOWER(g.name) LIKE LOWER(CONCAT(:name, '%'))")
     List<GameDTO> findDTOByNameStartsWith(@Param("name") String name, Pageable pageable);
 
+    @Query("SELECT COUNT(g) FROM Game g")
+    long countAllGames();
+
+    @Query("SELECT COUNT(g) FROM Game g JOIN g.genres genre WHERE genre.id = :idGenre")
+    long countGamesByGenre(@Param("idGenre") int idGenre);
+
+    @Query("SELECT COUNT(g) FROM Game g JOIN g.creators creator WHERE creator.id = :idCreator")
+    long countGamesByCreator(@Param("idCreator") int idCreator);
+
+    @Query("SELECT COUNT(g) FROM Game g JOIN g.tags tag WHERE tag.id = :idTag")
+    long countGamesByTag(@Param("idTag") int idTag);
+
+    @Query("SELECT COUNT(g) FROM Game g JOIN g.platforms platform WHERE platform.id = :idPlatform")
+    long countGamesByPlatform(@Param("idPlatform") int idPlatform);
+
 }

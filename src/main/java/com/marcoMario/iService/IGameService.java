@@ -1,6 +1,7 @@
 package com.marcoMario.iService;
 
 import com.marcoMario.model.DTO.GameDTO;
+import com.marcoMario.model.DTO.ObjectPage;
 import com.marcoMario.model.Game;
 
 import java.util.List;
@@ -9,17 +10,17 @@ public interface IGameService {
 
     Game getGameById(long GameId);
 
-    List<GameDTO> getGamesDTO();
+    ObjectPage getGamesDTO(int page);
 
     List<GameDTO> getNewestGamesDTO();
 
-    List<GameDTO> getGamesByGenre(int idGenre, int page, int size);
+    ObjectPage getGamesByGenre(int idGenre, int page);
 
-    List<GameDTO> getGamesByCreator(int idCreator, int page, int size);
+    ObjectPage getGamesByCreator(int idCreator, int page);
 
-    List<GameDTO> getGamesByTag(int idTag, int page, int size);
+    ObjectPage getGamesByTag(int idTag, int page);
 
-    List<GameDTO> getGamesByPlatform(int idPlatform, int page, int size);
+    ObjectPage getGamesByPlatform(int idPlatform, int page);
 
     List<GameDTO> findByNameStartsWith(String gameName);
 }
