@@ -11,6 +11,8 @@ public interface IGameService {
 
     List<GameDTO> getGamesDTO();
 
+    List<GameDTO> getNewestGamesDTO();
+
     List<GameDTO> getGamesByGenre(int idGenre, int page, int size);
 
     List<GameDTO> getGamesByCreator(int idCreator, int page, int size);

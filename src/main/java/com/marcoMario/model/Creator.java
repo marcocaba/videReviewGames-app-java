@@ -13,8 +13,6 @@ public class Creator {
 
     private String name;
 
-
-
     public Creator() {}
 
     public Creator(Long id, String name) {

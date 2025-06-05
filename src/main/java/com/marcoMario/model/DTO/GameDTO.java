@@ -1,9 +1,13 @@
 package com.marcoMario.model.DTO;
 
+import com.marcoMario.model.Creator;
+import com.marcoMario.model.Tag;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.util.Set;
 
 public class GameDTO {
 
@@ -14,6 +18,9 @@ public class GameDTO {
     private String description;
     private String released;
     private String image;
+    private String imageSecond ;
+    private Set<Tag> tags;
+    private Set<Creator> creators;
 
     public GameDTO() {
     }
@@ -24,6 +31,30 @@ public class GameDTO {
         this.description = description;
         this.released = released;
         this.image = image;
+    }
+
+    public String getImageSecond() {
+        return imageSecond;
+    }
+
+    public void setImageSecond(String imageSecond) {
+        this.imageSecond = imageSecond;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public Set<Creator> getCreators() {
+        return creators;
+    }
+
+    public void setCreators(Set<Creator> creators) {
+        this.creators = creators;
     }
 
     public Long getId() {

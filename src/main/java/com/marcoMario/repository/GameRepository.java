@@ -20,6 +20,9 @@ public interface GameRepository extends JpaRepository <Game, Long> {
     @Query("SELECT new com.marcoMario.model.DTO.GameDTO(g.id, g.name, g.description, g.released, g.image) FROM Game g")
     Page<GameDTO> getAllGamesWithDetailsDTO(Pageable pageable);
 
+    @Query("SELECT new com.marcoMario.model.DTO.GameDTO(g.id, g.name, g.description, g.released, g.image) FROM Game g WHERE g.image IS NOT NULL ORDER BY g.released DESC")
+    Page<GameDTO> findTopGamesByReleased(Pageable pageable);
+
     @Query("SELECT new com.marcoMario.model.DTO.GameDTO(g.id, g.name, g.description, g.released, g.image) FROM Game g JOIN g.genres genre WHERE genre.id = :idGenre")
     Page<GameDTO> getAllGamesFilterByGenre(@Param("idGenre") int idGenre, Pageable pageable);
 
@@ -34,4 +37,5 @@ public interface GameRepository extends JpaRepository <Game, Long> {
 
     @Query("SELECT new com.marcoMario.model.DTO.GameDTO(g.id, g.name, g.description, g.released, g.image)FROM Game g WHERE LOWER(g.name) LIKE LOWER(CONCAT(:name, '%'))")
     List<GameDTO> findDTOByNameStartsWith(@Param("name") String name, Pageable pageable);
+
 }

@@ -1,7 +1,6 @@
 package com.marcoMario.service;
 
 import com.marcoMario.iService.IGameService;
-import com.marcoMario.model.Creator;
 import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.Game;
 import com.marcoMario.repository.*;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,41 +64,99 @@ public class GameService implements IGameService {
 
     @Override
     public List<GameDTO> getGamesDTO() {
-        System.out.println("2");
         Pageable pageable = PageRequest.of(0, 20);
         Page<GameDTO> gamesPage = gameRepository.getAllGamesWithDetailsDTO(pageable);
-        System.out.println("3");
-        return gamesPage.getContent();
+        List<GameDTO> games = gamesPage.getContent();
+
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
+            gamesDTO.add(buildGameDTO(game));
+        }
+
+        return gamesDTO;
+    }
+
+
+    private GameDTO buildGameDTO(GameDTO game){
+        game.setTags(tagRepository.findAllByGameId(game.getId()));
+        game.setCreators(creatorRepository.findCreatorsByGameId(game.getId()));
+        game.setImageSecond(screenshotsRepository.findFirstUrlByGameId(game.getId()).getFirst());
+        return game;
+    }
+
+    @Override
+    public List<GameDTO> getNewestGamesDTO() {
+        System.out.println("1");
+        List<GameDTO> games = gameRepository.findTopGamesByReleased(PageRequest.of(0, 4)).getContent();
+        System.out.println("2");
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
+            System.out.println(game.toString());
+            gamesDTO.add(buildGameDTO(game));
+        }
+        return gamesDTO;
     }
 
     @Override
     public List<GameDTO> getGamesByGenre(int idGenre, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return gameRepository.getAllGamesFilterByGenre(idGenre, pageable).getContent();
+        List<GameDTO> games = gameRepository.getAllGamesFilterByGenre(idGenre, pageable).getContent();
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
+            gamesDTO.add(buildGameDTO(game));
+        }
+        return gamesDTO;
     }
 
     @Override
     public List<GameDTO> getGamesByCreator(int idCreator, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return gameRepository.getAllGamesFilterByCreator(idCreator, pageable).getContent();
+        List<GameDTO> games = gameRepository.getAllGamesFilterByCreator(idCreator, pageable).getContent();
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
+            gamesDTO.add(buildGameDTO(game));
+        }
+        return gamesDTO;
     }
 
     @Override
     public List<GameDTO> getGamesByTag(int idTag, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return gameRepository.getAllGamesFilterByTag(idTag, pageable).getContent();
+        List<GameDTO> games = gameRepository.getAllGamesFilterByTag(idTag, pageable).getContent();
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
+            gamesDTO.add(buildGameDTO(game));
+        }
+        return gamesDTO;
     }
 
     @Override
     public List<GameDTO> getGamesByPlatform(int idPlatform, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return gameRepository.getAllGamesFilterByPlatform(idPlatform, pageable).getContent();
+        List<GameDTO> games = gameRepository.getAllGamesFilterByPlatform(idPlatform, pageable).getContent();
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
+            gamesDTO.add(buildGameDTO(game));
+        }
+        return gamesDTO;
     }
 
     @Override
     public List<GameDTO> findByNameStartsWith(String gameName) {
         Pageable limit = PageRequest.of(0, 30);
-        return gameRepository.findDTOByNameStartsWith(gameName, limit);
+        List<GameDTO> games = gameRepository.findDTOByNameStartsWith(gameName, limit);
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
+            gamesDTO.add(buildGameDTO(game));
+        }
+        return gamesDTO;
     }
 
 }
