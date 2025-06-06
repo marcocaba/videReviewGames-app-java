@@ -85,7 +85,13 @@ public class GameService implements IGameService {
     private GameDTO buildGameDTO(GameDTO game){
         game.setTags(tagRepository.findAllByGameId(game.getId()));
         game.setCreators(creatorRepository.findCreatorsByGameId(game.getId()));
-        game.setImageSecond(screenshotsRepository.findFirstUrlByGameId(game.getId()).getFirst());
+        List<String> screenshots = screenshotsRepository.findFirstUrlByGameId(game.getId());
+        if(screenshots.isEmpty()){
+            game.setImage("joker");
+        }else{
+            game.setImageSecond(screenshots.getFirst());
+        }
+
         return game;
     }
 
