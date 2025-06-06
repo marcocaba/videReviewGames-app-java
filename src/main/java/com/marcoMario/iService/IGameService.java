@@ -14,6 +14,8 @@ public interface IGameService {
 
     List<GameDTO> getNewestGamesDTO();
 
+    List<GameDTO> getCarouselGamesDTO();
+
     ObjectPage getGamesByGenre(int idGenre, int page);
 
     ObjectPage getGamesByCreator(int idCreator, int page);

@@ -37,6 +37,12 @@ public class GameRestController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/viewCarouselGamesDTO")
+    public List<GameDTO> viewCarouselGamesDTO() {
+        return gameService.getCarouselGamesDTO();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/viewGamesByGenre")
     public ObjectPage viewGamesByGenre(@RequestParam("idGenre") int idGenre, @RequestParam("page") int page) {
         return gameService.getGamesByGenre(idGenre, page);

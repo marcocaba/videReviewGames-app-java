@@ -95,7 +95,17 @@ public class GameService implements IGameService {
         List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
 
         for(GameDTO game:games){
-            System.out.println(game.toString());
+            gamesDTO.add(buildGameDTO(game));
+        }
+        return gamesDTO;
+    }
+
+    @Override
+    public List<GameDTO> getCarouselGamesDTO() {
+        List<GameDTO> games = gameRepository.findRandomGamesDTO(PageRequest.of(0, 4)).getContent();
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
             gamesDTO.add(buildGameDTO(game));
         }
         return gamesDTO;
