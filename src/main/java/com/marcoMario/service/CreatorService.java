@@ -18,4 +18,9 @@ public class CreatorService implements ICreatorService {
     public Set<Creator> getCreatorsByGameId(long idGame) {
         return creatorRepository.findCreatorsByGameId(idGame);
     }
+
+    @Override
+    public Creator getCreatorById(long idCreator) {
+        return creatorRepository.findById(idCreator).orElse(null);
+    }
 }

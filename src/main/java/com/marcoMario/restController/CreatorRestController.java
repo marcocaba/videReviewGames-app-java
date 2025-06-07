@@ -22,4 +22,11 @@ public class CreatorRestController {
     public Set<Creator> getCreatorsByGameId(@RequestParam("idGame") long idGame) {
         return creatorService.getCreatorsByGameId(idGame);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getCreatorById")
+    public Creator getCreatorById(@RequestParam("idCreator") long idCreator) {
+        return creatorService.getCreatorById(idCreator);
+    }
+
 }
