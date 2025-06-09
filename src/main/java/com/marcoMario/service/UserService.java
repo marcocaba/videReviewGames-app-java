@@ -25,18 +25,24 @@ public class UserService implements IUserService {
     private GameRepository gameRepository;
 
     @Override
-    public boolean registerUser(String nameUser, String password) {
-        boolean exist = false;
-        Optional<User> existingUser = userRepository.findByName(nameUser);
+    public String registerUser(String nameUser, String password, String SecondPassword) {
+        User newUser = new User();
+        Optional<User> existing = userRepository.findByName(nameUser);
+        String register = "userRegister";
 
-        if (existingUser.isEmpty()) {
-            User user = new User();
-            user.setName(nameUser);
-            user.setPsswd(password);
-            userRepository.save(user);
-            exist = true;
+        if (existing.isPresent()) {
+            register = "userNameExist";
+
+        } else if (!password.equals(SecondPassword)) {
+            register = "passwordsNotTheSame";
+
+        }else {
+            newUser.setName(nameUser);
+            newUser.setPsswd(password);
+            userRepository.save(newUser);
         }
-        return exist;
+
+        return register;
     }
 
     @Override
@@ -95,5 +101,17 @@ public class UserService implements IUserService {
         }
 
         return removed;
+    }
+
+    @Override
+    public String logInUser(String nameUser, String password) {
+        Optional<User> user = userRepository.findByNameAndPsswd(nameUser, password);
+        String loged = "loged";
+
+        if (user.isEmpty()) {
+            loged = "invalidCredentials";
+        }
+
+        return loged;
     }
 }

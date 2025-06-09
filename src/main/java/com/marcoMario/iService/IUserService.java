@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface IUserService {
 
-    boolean registerUser(String nameUser, String password);
+    String registerUser(String nameUser, String password, String SecondPassword);
 
     ObjectPage viewFavoriteGamesById(long idUser, int page);
 
     String addGameToFavorites(Long userId, Long gameId);
 
     String removeGameFromFavorites(Long userId, Long gameId);
+
+    String logInUser(String nameUser, String password);
 }
