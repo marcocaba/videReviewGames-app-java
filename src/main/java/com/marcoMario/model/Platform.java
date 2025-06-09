@@ -15,11 +15,13 @@ public class Platform {
     private int id;
     private String slug;
     private String name;
+    private String url;
 
-    public Platform(int id, String slug, String name) {
+    public Platform(int id, String slug, String name, String url) {
         this.id = id;
         this.slug = slug;
         this.name = name;
+        this.url = url;
 
     }
 
@@ -49,5 +51,14 @@ public class Platform {
     public void setName(String name) {
         this.name = name;
     }
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+    
 
 }
