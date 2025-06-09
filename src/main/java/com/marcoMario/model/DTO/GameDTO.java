@@ -32,6 +32,11 @@ public class GameDTO {
         this.released = released;
         this.image = image;
     }
+    
+    public GameDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public String getImageSecond() {
         return imageSecond;
