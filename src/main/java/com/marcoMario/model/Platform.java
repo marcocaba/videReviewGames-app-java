@@ -15,7 +15,6 @@ public class Platform {
     private int id;
     private String slug;
     private String name;
-    
     @Column(columnDefinition = "TEXT")
     private String url;
 
@@ -54,6 +53,7 @@ public class Platform {
         this.name = name;
     }
 
+    
 	public String getUrl() {
 		return url;
 	}

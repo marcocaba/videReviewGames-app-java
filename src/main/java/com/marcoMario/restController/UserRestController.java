@@ -5,10 +5,10 @@ import com.marcoMario.iService.IUserService;
 import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.DTO.ObjectPage;
 import com.marcoMario.model.Game;
+import com.marcoMario.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 public class UserRestController {
@@ -18,12 +18,18 @@ public class UserRestController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/registerUser")
-    public boolean registerUser(@RequestParam String nameUser,@RequestParam String password ) {
-        return userService.registerUser(nameUser,password);
+    public String registerUser(@RequestParam("nameUser") String nameUser, @RequestParam("FirsPassword") String FirsPassword, @RequestParam("SecondPassword") String SecondPassword ) {
+        return userService.registerUser(nameUser,FirsPassword, SecondPassword);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/viewFavoriteGamesById/{page}")
+    @GetMapping("/logInUser")
+    public String logInUser(@RequestParam("nameUser") String nameUser, @RequestParam("password") String password) {
+        return userService.logInUser(nameUser,password);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/viewFavoriteGamesById/{page}")
     public ObjectPage viewFavoriteGamesById(@RequestParam("idUser") long idUser, @PathVariable("page") int page ) {
         return userService.viewFavoriteGamesById(idUser,page);
     }
@@ -35,9 +41,8 @@ public class UserRestController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/removeGameFromFavorites")
+    @DeleteMapping("/removeGameFromFavorites")
     public String removeGameFromFavorites(@RequestParam("idUser") long idUser, @RequestParam("gameId") long gameId ) {
         return userService.removeGameFromFavorites(idUser,gameId);
     }
-
 }
