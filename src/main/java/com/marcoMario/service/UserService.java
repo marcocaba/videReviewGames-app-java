@@ -2,17 +2,19 @@ package com.marcoMario.service;
 
 import com.marcoMario.iService.IUserService;
 
+import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.DTO.ObjectPage;
 import com.marcoMario.model.Game;
 import com.marcoMario.model.User;
-import com.marcoMario.repository.GameRepository;
-import com.marcoMario.repository.UserRepository;
+import com.marcoMario.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +25,24 @@ public class UserService implements IUserService {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private CreatorRepository creatorRepository;
+
+    @Autowired
+    private PlatformRepository platformRepository;
+
+    @Autowired
+    private AchievementsRepository achievementsRepository;
+
+    @Autowired
+    private ScreenshotsRepository screenshotsRepository;
+
+    @Autowired
+    private GenresRepository genresRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @Override
     public String registerUser(String nameUser, String password, String SecondPassword) {
@@ -49,11 +69,31 @@ public class UserService implements IUserService {
     public ObjectPage viewFavoriteGamesById(long idUser, int page) {
         ObjectPage objectPage = new ObjectPage();
         Pageable pageable = PageRequest.of(page, 20);
+        List<GameDTO> games = userRepository.findFavoritesByUserId(idUser, pageable);
 
-        objectPage.setObjectListGameDTO(userRepository.findFavoritesByUserId(idUser, pageable));
+        List<GameDTO> gamesDTO = new ArrayList<GameDTO>();
+
+        for(GameDTO game:games){
+            gamesDTO.add(buildGameDTO(game));
+        }
+
+        objectPage.setObjectListGameDTO(gamesDTO);
         objectPage.setSizeList(userRepository.countFavoritesGamesByUserId(idUser));
 
         return objectPage;
+    }
+
+    private GameDTO buildGameDTO(GameDTO game){
+        game.setTags(tagRepository.findAllByGameId(game.getId()));
+        game.setCreators(creatorRepository.findCreatorsByGameId(game.getId()));
+        List<String> screenshots = screenshotsRepository.findFirstUrlByGameId(game.getId());
+        if(screenshots.isEmpty()){
+            game.setImage("joker");
+        }else{
+            game.setImageSecond(screenshots.getFirst());
+        }
+
+        return game;
     }
 
     @Transactional

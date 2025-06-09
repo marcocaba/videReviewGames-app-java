@@ -12,7 +12,7 @@ public class ReviewRestController {
     private IReviewService reviewService;
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/viewReviewsUser")
+    @GetMapping("/viewReviewsUser/{page}")
     public ObjectPage viewReviewsUser(@RequestParam("idUser") long idUser, @PathVariable("page") int page ) {
         return reviewService.getReviewsUser(idUser, page);
     }

@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByNameAndPsswd(String name, String psswd);
 
-    @Query("SELECT new com.marcoMario.model.DTO.GameDTO(g.id, g.name) FROM User u JOIN u.favorites g WHERE u.idUser = :userId")
+    @Query("SELECT new com.marcoMario.model.DTO.GameDTO(g.id, g.name, g.description, g.released, g.image) FROM User u JOIN u.favorites g WHERE u.idUser = :userId")
     List<GameDTO> findFavoritesByUserId(@Param("userId") Long userId, Pageable pageable);
 
     @Query("SELECT COUNT(g) FROM User u JOIN u.favorites g WHERE u.idUser = :userId")

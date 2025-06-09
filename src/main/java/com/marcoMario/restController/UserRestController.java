@@ -29,7 +29,7 @@ public class UserRestController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/viewFavoriteGamesById/{page}")
+    @GetMapping("/viewFavoriteGamesById/{page}")
     public ObjectPage viewFavoriteGamesById(@RequestParam("idUser") long idUser, @PathVariable("page") int page ) {
         return userService.viewFavoriteGamesById(idUser,page);
     }

@@ -32,10 +32,10 @@ public class ReviewService implements IReviewService {
     @Override
     public String addReviewUser(long idUser, long idGame, String text, int score) {
         Review review = new Review(idUser, idGame, text, score);
-        List<Review> reviews = reviewRepository.findReviewsByUserId(idUser);
+        Review existingReview = reviewRepository.findByIdUserAndIdGame(idUser, idGame);
         String added = "reviewAdded";
 
-        if(reviews.contains(review)){
+        if(existingReview == null){
             added="contains";
         }else {
             reviewRepository.save(review);
