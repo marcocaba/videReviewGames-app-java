@@ -15,6 +15,7 @@ public class Platform {
     private int id;
     private String slug;
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String url;
 
     public Platform(int id, String slug, String name, String url) {

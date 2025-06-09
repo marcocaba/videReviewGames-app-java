@@ -1,5 +1,7 @@
 package com.marcoMario.model.DTO;
 
+import com.marcoMario.model.Review;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,5 +37,9 @@ public class ObjectPage {
 
     public void setObjectListGameDTO(List<GameDTO> listGameDTO){
         this.objectList = new ArrayList<Object>(listGameDTO);
+    }
+
+    public void setObjectListReview(List<Review> listReview){
+        this.objectList = new ArrayList<Object>(listReview);
     }
 }

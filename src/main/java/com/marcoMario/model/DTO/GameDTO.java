@@ -11,10 +11,8 @@ import java.util.Set;
 
 public class GameDTO {
 
-    @Id
     private Long id;
     private String name;
-    @Column(columnDefinition = "TEXT")
     private String description;
     private String released;
     private String image;
@@ -31,6 +29,11 @@ public class GameDTO {
         this.description = description;
         this.released = released;
         this.image = image;
+    }
+
+    public GameDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public String getImageSecond() {
