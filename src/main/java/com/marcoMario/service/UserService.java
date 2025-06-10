@@ -154,4 +154,15 @@ public class UserService implements IUserService {
 
         return loged;
     }
+
+    @Override
+    public long getIdUserByName(String nameUser) {
+        Optional<User> user = userRepository.findByName(nameUser);
+        long id = 0;
+        if(user.isPresent()){
+            id = user.get().getIdUser();
+        }
+
+        return id;
+    }
 }

@@ -17,4 +17,6 @@ public interface IUserService {
     String removeGameFromFavorites(Long userId, Long gameId);
 
     String logInUser(String nameUser, String password);
+
+    long getIdUserByName(String name);
 }

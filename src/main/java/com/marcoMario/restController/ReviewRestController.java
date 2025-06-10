@@ -12,8 +12,8 @@ public class ReviewRestController {
     private IReviewService reviewService;
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/viewReviewsUser/{page}")
-    public ObjectPage viewReviewsUser(@RequestParam("idUser") long idUser, @PathVariable("page") int page ) {
+    @GetMapping("/viewReviewsUser")
+    public ObjectPage viewReviewsUser(@RequestParam("idUser") long idUser, @RequestParam("page") int page ) {
         return reviewService.getReviewsUser(idUser, page);
     }
 
@@ -31,7 +31,7 @@ public class ReviewRestController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/viewReviewsByGame")
-    public ObjectPage viewReviewsByGame( @RequestParam("idGame") long idGame, @PathVariable("page") int page ) {
+    public ObjectPage viewReviewsByGame( @RequestParam("idGame") long idGame, @RequestParam("page") int page ) {
         return reviewService.getReviewsByGame(idGame, page);
     }
 
