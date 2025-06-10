@@ -35,12 +35,12 @@ public class ReviewService implements IReviewService {
         Review existingReview = reviewRepository.findByIdUserAndIdGame(idUser, idGame);
         String added = "reviewAdded";
 
-        if(existingReview == null){
+        if(existingReview != null){
             added="contains";
         }else {
             reviewRepository.save(review);
         }
-
+        System.out.println(added);
         return added;
     }
 

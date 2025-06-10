@@ -36,11 +36,6 @@ public class GameDTO {
         this.name = name;
     }
 
-    public GameDTO(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public String getImageSecond() {
         return imageSecond;
     }

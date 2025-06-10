@@ -1,6 +1,7 @@
 package com.marcoMario.restController;
 
 import com.marcoMario.iService.IReviewService;
+import com.marcoMario.model.Review;
 import com.marcoMario.model.DTO.ObjectPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +13,26 @@ public class ReviewRestController {
     private IReviewService reviewService;
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/viewReviewsUser/{page}")
-    public ObjectPage viewReviewsUser(@RequestParam("idUser") long idUser, @PathVariable("page") int page ) {
+    @GetMapping("/viewReviewsUser")
+    public ObjectPage viewReviewsUser(@RequestParam("idUser") long idUser, @RequestParam("page") int page ) {
         return reviewService.getReviewsUser(idUser, page);
     }
 
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @PostMapping("/addReviewUser")
+//    public String addReviewUser(@RequestParam("idUser") long idUser, @RequestParam("idGame") long idGame, @RequestParam("text") String text, @RequestParam("score") int score ) {
+//    	System.err.println("HGoal" + idUser);
+//        return reviewService.addReviewUser(idUser, idGame, text, score);
+//    }
+//  
+    
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/addReviewUser")
-    public String addReviewUser(@RequestParam("idUser") long idUser, @RequestParam("idGame") long idGame, @RequestParam("text") String text, @RequestParam("score") int score ) {
-        return reviewService.addReviewUser(idUser, idGame, text, score);
+    public String addReviewUser(@RequestBody Review review) {
+    	System.err.println("HGoal" + review.getIdUser());
+        return reviewService.addReviewUser(review.getIdUser(), review.getIdGame(), review.getText(), review.getScore());
     }
+  
 
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/removeReviewUser")
@@ -31,7 +42,8 @@ public class ReviewRestController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/viewReviewsByGame")
-    public ObjectPage viewReviewsByGame( @RequestParam("idGame") long idGame, @PathVariable("page") int page ) {
+    public ObjectPage viewReviewsByGame( @RequestParam("idGame") long idGame, @RequestParam("page") int page ) {
+    	System.out.println("ver review juego"+ idGame + page);
         return reviewService.getReviewsByGame(idGame, page);
     }
 
