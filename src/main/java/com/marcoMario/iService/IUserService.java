@@ -3,6 +3,7 @@ package com.marcoMario.iService;
 import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.DTO.ObjectPage;
 import com.marcoMario.model.Game;
+import com.marcoMario.model.User;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface IUserService {
     String removeGameFromFavorites(Long userId, Long gameId);
 
     String logInUser(String nameUser, String password);
+    
+    User getUserById(Long idUser);
 }

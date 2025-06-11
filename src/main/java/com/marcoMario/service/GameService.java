@@ -5,6 +5,9 @@ import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.DTO.ObjectPage;
 import com.marcoMario.model.Game;
 import com.marcoMario.repository.*;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -41,8 +44,23 @@ public class GameService implements IGameService {
 
     @Override
     public Game getGameById(long GameId) {
-        Game game;
-        game = buildCreators(gameRepository.getGameById(GameId));
+//        Game game;
+//        game = buildCreators(gameRepository.getGameById(GameId));
+//        game.setCreators(creatorRepository.findCreatorsByGameId(GameId));
+//        game.setPlatforms(platformRepository.findPlatformsByGameId(GameId));
+//        game.setAchievements(achievementsRepository.findAchievementsByGameId(GameId));
+//        game.setScreenshots(screenshotsRepository.findAllByGameId(GameId));
+//        game.setGenres(genresRepository.findAllByGameId(GameId));
+//        game.setTags(tagRepository.findAllByGameId(GameId));
+//
+//        return game;
+    	GameDTO gameFromDb = gameRepository.getGameById(GameId);
+        if (gameFromDb == null) {
+            throw new EntityNotFoundException("Juego no encontrado con ID: " + GameId);
+        }
+
+        Game game = buildCreators(gameFromDb);
+
         game.setCreators(creatorRepository.findCreatorsByGameId(GameId));
         game.setPlatforms(platformRepository.findPlatformsByGameId(GameId));
         game.setAchievements(achievementsRepository.findAchievementsByGameId(GameId));

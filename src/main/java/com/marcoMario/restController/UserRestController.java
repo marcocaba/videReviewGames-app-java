@@ -45,4 +45,12 @@ public class UserRestController {
     public String removeGameFromFavorites(@RequestParam("idUser") long idUser, @RequestParam("gameId") long gameId ) {
         return userService.removeGameFromFavorites(idUser,gameId);
     }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getUserById/{id}")
+    public User getUserById(@PathVariable("id") Long id) {
+    	System.out.println("Id del usuario: " + id);
+        return userService.getUserById(id);
+    }
+
 }
