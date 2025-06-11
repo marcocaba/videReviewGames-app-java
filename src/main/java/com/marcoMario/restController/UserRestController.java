@@ -18,37 +18,57 @@ public class UserRestController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/registerUser")
-    public String registerUser(@RequestParam("nameUser") String nameUser, @RequestParam("FirsPassword") String FirsPassword, @RequestParam("SecondPassword") String SecondPassword ) {
-        return userService.registerUser(nameUser,FirsPassword, SecondPassword);
+    public String registerUser(@RequestParam("nameUser") String nameUser, @RequestParam("firstPassword") String firstPassword, @RequestParam("secondPassword") String secondPassword ) {
+        return userService.registerUser(nameUser,firstPassword, secondPassword);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/checkLogInState")
+    public boolean checkLogInState() {
+        return userService.checkLogInState();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/logInUser")
     public String logInUser(@RequestParam("nameUser") String nameUser, @RequestParam("password") String password) {
+        System.out.println("iniciada");
         return userService.logInUser(nameUser,password);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/viewFavoriteGamesById/{page}")
-    public ObjectPage viewFavoriteGamesById(@RequestParam("idUser") long idUser, @PathVariable("page") int page ) {
-        return userService.viewFavoriteGamesById(idUser,page);
+    @GetMapping("/logOutUser")
+    public boolean logOutUser() {
+        System.out.println("cerrada");
+        return userService.logOutUser();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/addGameToFavorites")
-    public String addGameToFavorites(@RequestParam("idUser") long idUser, @RequestParam("gameId") long gameId ) {
-        return userService.addGameToFavorites(idUser,gameId);
+    @GetMapping("/viewFavoriteGamesById/{page}")
+    public ObjectPage viewFavoriteGamesById( @PathVariable("page") int page ) {
+        return userService.viewFavoriteGamesById(page);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/addGameToFavorites" )
+    public String addGameToFavorites( @RequestParam("gameId") long gameId ) {
+        return userService.addGameToFavorites(gameId);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/removeGameFromFavorites")
-    public String removeGameFromFavorites(@RequestParam("idUser") long idUser, @RequestParam("gameId") long gameId ) {
-        return userService.removeGameFromFavorites(idUser,gameId);
+    public String removeGameFromFavorites( @RequestParam("gameId") long gameId ) {
+        return userService.removeGameFromFavorites(gameId);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/getIdUserByName")
-    public long getIdUserByName(@RequestParam("nameUser") String nameUser ) {
-        return userService.getIdUserByName(nameUser);
+    @GetMapping("/getNameUserByIdUser")
+    public String getNameUserByIdUser() {
+        return userService.getNameUserByIdUser();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getUserById/{id}")
+    public User getUserById(@PathVariable("id") long id) {
+        return userService.getUserById(id);
     }
 }

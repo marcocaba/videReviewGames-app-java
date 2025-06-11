@@ -6,6 +6,8 @@ import com.marcoMario.repository.PlatformRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class PlatformService implements IPlatformService {
 
@@ -16,4 +18,10 @@ public class PlatformService implements IPlatformService {
     public Platform getPlatformById(long idPlatform) {
         return platformRepository.findById(idPlatform).orElse(null);
     }
+
+    @Override
+    public Set<Platform> getPlatformsByGameId(long gameId) {
+        return platformRepository.findPlatformsByGameId(gameId);
+    }
+
 }

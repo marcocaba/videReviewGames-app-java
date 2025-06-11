@@ -13,6 +13,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findByIdGame(Long idGame, Pageable pageable);
 
+    List<Review> findByIdGame(Long idGame);
+
     long countByIdGame(Long idGame);
 
     @Query("SELECT r FROM Review r WHERE r.idUser = :idUser")
