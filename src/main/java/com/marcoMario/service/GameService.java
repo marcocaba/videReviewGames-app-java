@@ -1,8 +1,6 @@
 package com.marcoMario.service;
 
-import com.marcoMario.iService.ICreatorService;
 import com.marcoMario.iService.IGameService;
-import com.marcoMario.iService.IPlatformService;
 import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.DTO.ObjectPage;
 import com.marcoMario.model.Game;
@@ -23,10 +21,10 @@ public class GameService implements IGameService {
     private GameRepository gameRepository;
 
     @Autowired
-    private ICreatorService creatorService;
+    private CreatorRepository creatorRepository;
 
     @Autowired
-    private IPlatformService platformService;
+    private PlatformRepository platformRepository;
 
     @Autowired
     private AchievementsRepository achievementsRepository;
@@ -45,8 +43,8 @@ public class GameService implements IGameService {
     public Game getGameById(long GameId) {
         Game game;
         game = buildCreators(gameRepository.getGameById(GameId));
-        game.setCreators(creatorService.getCreatorsByGameId(GameId));
-        game.setPlatforms(platformService.getPlatformsByGameId(GameId));
+        game.setCreators(creatorRepository.findCreatorsByGameId(GameId));
+        game.setPlatforms(platformRepository.findPlatformsByGameId(GameId));
         game.setAchievements(achievementsRepository.findAchievementsByGameId(GameId));
         game.setScreenshots(screenshotsRepository.findAllByGameId(GameId));
         game.setGenres(genresRepository.findAllByGameId(GameId));
@@ -97,7 +95,7 @@ public class GameService implements IGameService {
 
     private GameDTO buildGameDTO(GameDTO game){
         game.setTags(tagRepository.findAllByGameId(game.getId()));
-        game.setCreators(creatorService.getCreatorsByGameId(game.getId()));
+        game.setCreators(creatorRepository.findCreatorsByGameId(game.getId()));
         List<String> screenshots = screenshotsRepository.findFirstUrlByGameId(game.getId());
         if(screenshots.isEmpty()){
             game.setImage("joker");

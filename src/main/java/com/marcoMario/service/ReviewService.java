@@ -6,7 +6,6 @@ import com.marcoMario.model.DTO.GameDTO;
 import com.marcoMario.model.DTO.ObjectPage;
 import com.marcoMario.model.LoggedUser;
 import com.marcoMario.model.Review;
-import com.marcoMario.repository.GameRepository;
 import com.marcoMario.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

@@ -1,6 +1,6 @@
 package com.marcoMario.repository;
 
-import com.marcoMario.model.Achievement;
+
 import com.marcoMario.model.Screenshot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

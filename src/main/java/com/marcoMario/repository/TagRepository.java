@@ -1,6 +1,5 @@
 package com.marcoMario.repository;
 
-import com.marcoMario.model.Creator;
 import com.marcoMario.model.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
